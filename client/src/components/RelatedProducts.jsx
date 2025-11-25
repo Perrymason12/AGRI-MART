@@ -20,11 +20,11 @@ const RelatedProducts = ({product, productId}) => {
       }
     },[products, product?.category, productId])
   return (
-    <section className="mt-28">
-      <Title title1={"Related"} title2={"Products"} titleStyles={"pb-10"} />
+    <section className="mt-16 md:mt-24 lg:mt-28 max-padd-container">
+      <Title title1={"Related"} title2={"Products"} titleStyles={"pb-6 md:pb-8 lg:pb-10"} />
       {/*Container */}
         <Swiper
-        spaceBetween={30}
+        spaceBetween={20}
         
         autoplay={{
           delay: 4000,
@@ -35,20 +35,24 @@ const RelatedProducts = ({product, productId}) => {
             {
              555:{
                 slidesPerView: 1,
+                spaceBetween: 20,
              }, 
              600:{
                 slidesPerView: 2,
+                spaceBetween: 24,
              }, 
              1022:{
                 slidesPerView: 3,
+                spaceBetween: 30,
              }, 
              1350:{
                 slidesPerView: 4,
+                spaceBetween: 40,
              },   
             }
         }
         modules={[Autoplay]}
-        className="min-h-[399px]"
+        className="min-h-[280px] sm:min-h-[320px] md:min-h-[360px] lg:min-h-[400px]"
       >
 
             {relatedProducts.map((product) => (

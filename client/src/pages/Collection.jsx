@@ -108,39 +108,39 @@ const Collection = () => {
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
 
   return (
-    <div className="max-padd-container px-0! mt-22">
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-16">
+    <div className="max-padd-container px-0! mt-16 md:mt-20 lg:mt-22">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 mb-12 md:mb-14 lg:mb-16">
         {/*filter options */}
-        <div className="w-full sm:min-w-72 bg-primary p-3 sm:p-4 pl-3 sm:pl-4 lg:pl-12 rounded-xl sm:rounded-r-xl">
+        <div className="w-full sm:min-w-[280px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[340px] bg-primary p-3 sm:p-4 md:p-5 lg:p-6 pl-3 sm:pl-4 md:pl-6 lg:pl-8 xl:pl-12 rounded-xl sm:rounded-r-xl">
           <SearchInput />
-          <div className="px-3 sm:px-4 py-3 mt-2 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Sort By Price</h5>
-            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 text-xs sm:text-sm medium-14 h-8 w-full px-2 rounded-md">
+          <div className="px-3 sm:px-4 md:px-5 py-3 md:py-4 mt-2 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Sort By Price</h5>
+            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 text-xs sm:text-sm md:text-base medium-14 h-9 md:h-10 w-full px-3 rounded-md">
               <option value="relevant">Relevant</option>
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
           </div>
-          <div className="px-3 sm:pl-5 py-3 mt-3 sm:mt-4 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Categories</h5>
-            <div className="flex flex-col gap-2 text-xs sm:text-sm font-light">
+          <div className="px-3 sm:pl-5 md:pl-6 py-3 md:py-4 mt-3 sm:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Categories</h5>
+            <div className="flex flex-col gap-2.5 md:gap-3 text-xs sm:text-sm md:text-base font-light">
               {allCategories.map((cat) => (
-                <label key={cat} className="flex gap-2 medium-14 text-gray-30 cursor-pointer">
+                <label key={cat} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors">
                   <input onChange={(e)=>toggleFilter(e.target.value , setCategory)} type="checkbox" value={cat} 
                   checked = {category.includes(cat)}
-                  className="w-4 h-4 mt-0.5" />
+                  className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer" />
                   {cat}
                 </label>
               ))}
             </div>
           </div>
-          <div className="px-3 sm:pl-5 py-3 mt-3 sm:mt-4 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Types</h5>
-            <div className="flex flex-col gap-2 text-xs sm:text-sm font-light">
+          <div className="px-3 sm:pl-5 md:pl-6 py-3 md:py-4 mt-3 sm:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Types</h5>
+            <div className="flex flex-col gap-2.5 md:gap-3 text-xs sm:text-sm md:text-base font-light">
               {availableTypes.map((typ)=>(
-                <label key={typ} className="flex gap-2 medium-14 text-gray-30 cursor-pointer">
+                <label key={typ} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors">
                   <input onChange={(e)=>toggleFilter(e.target.value , setType)} type="checkbox"
-                  value={typ} checked = {type.includes(typ)} className="w-4 h-4 mt-0.5"/>
+                  value={typ} checked = {type.includes(typ)} className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer"/>
                   {typ}
                 </label>
               ))}
@@ -149,8 +149,8 @@ const Collection = () => {
         </div>
 
         {/*Right side - filtered Products */}
-        <div className="max w-full sm:px-10 sm:pr-10">
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        <div className="max w-full sm:px-4 md:px-6 lg:px-8 xl:px-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8">
             {getPaginatedProducts().length > 0 ? (
               getPaginatedProducts().map((product) => (
                 <Item product={product} key={product._id} />
@@ -162,22 +162,22 @@ const Collection = () => {
             )}
           </div>
           {/*pagination */}
-          <div className="flexCenter flex-wrap mt-8 sm:mt-14 mb-6 sm:mb-10 gap-2 sm:gap-4">
+          <div className="flexCenter flex-wrap mt-8 sm:mt-12 md:mt-16 lg:mt-20 mb-6 sm:mb-8 md:mb-10 lg:mb-12 gap-2 sm:gap-3 md:gap-4">
             <button disabled={currentPage === 1}
             onClick={()=> setCurrentPage((prev)=> prev - 1)}
-            className={`btn-secondary py-1.5! px-3! sm:py-2! text-xs sm:text-sm ${currentPage === 1 && "opacity-50 cursor-not-allowed"}`}>
+            className={`btn-secondary py-2! px-4! md:py-2.5! md:px-5! text-xs sm:text-sm md:text-base transition-all hover:scale-105 ${currentPage === 1 && "opacity-50 cursor-not-allowed hover:scale-100"}`}>
               Previous
             </button>
             {Array.from({length: totalPages},(_, index)=>(
               <button key={index + 1} 
             onClick={()=> setCurrentPage(index + 1)}
-            className={`btn-light py-1.5! px-2.5! sm:py-1! sm:px-3! text-xs sm:text-sm min-w-[32px] sm:min-w-[36px] ${currentPage === index + 1 && "bg-tertiary text-white"}`}>
+            className={`btn-light py-2! px-3! md:py-2.5! md:px-4! text-xs sm:text-sm md:text-base min-w-[36px] md:min-w-[40px] lg:min-w-[44px] transition-all hover:scale-105 ${currentPage === index + 1 && "bg-tertiary text-white hover:scale-100"}`}>
                 {index + 1}
               </button>
             ))}
             <button disabled={currentPage === totalPages}
             onClick={()=> setCurrentPage((prev)=> prev + 1)}
-            className={`btn-secondary py-1.5! px-3! sm:py-2! text-xs sm:text-sm ${currentPage === totalPages && "opacity-50 cursor-not-allowed"}`}>
+            className={`btn-secondary py-2! px-4! md:py-2.5! md:px-5! text-xs sm:text-sm md:text-base transition-all hover:scale-105 ${currentPage === totalPages && "opacity-50 cursor-not-allowed hover:scale-100"}`}>
               Next
             </button>
           </div>

@@ -22,12 +22,12 @@ const Item = ({ product }) => {
   const bgcolor =
     colors[parseInt(product._id?.slice(-4) || "0", 16) % colors.length];
   return (
-    <div className="overflow-hidden w-full">
+    <div className="overflow-hidden w-full transition-all duration-300 hover:-translate-y-1 cursor-pointer group/item">
       {/*image */}
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="flexCenter h-[140px] sm:h-[160px] md:h-[182px] w-full transition-all duration-300 rounded-lg sm:rounded-xl group relative overflow-hidden"
+        className="flexCenter h-[140px] sm:h-[160px] md:h-[200px] lg:h-[220px] xl:h-[240px] w-full transition-all duration-300 rounded-lg sm:rounded-xl group relative overflow-hidden shadow-sm hover:shadow-md"
         style={{ backgroundColor: bgcolor }}
       >
         <img
@@ -37,36 +37,36 @@ const Item = ({ product }) => {
               : product.images?.[0] || ''
           }
           alt={product.title || 'Product'}
-          className="w-auto h-full object-contain p-2"
+          className="w-auto h-full object-contain p-2 md:p-3 lg:p-4 transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute bottom-1 left-1 right-1 block md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-1 left-1 right-1 md:bottom-2 md:left-2 md:right-2 block md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
           <button
             onClick={() => {
               navigate(`/collection/${product._id} `);
               scrollTo(0, 0);
               
             }}
-            className = "btn-secondary py-1.5! px-2! w-full text-xs! sm:py-2! sm:text-sm!"
+            className = "btn-secondary py-2! px-3! md:py-2.5! md:px-4! w-full text-xs! sm:text-sm! md:text-base! font-medium shadow-lg hover:shadow-xl transition-all"
           >
             Quick View
           </button>
         </div>
         {product.type && (
-          <p className="absolute top-1 right-1 sm:top-2 sm:right-1 ring-1 ring-slate-900/10 px-2 sm:px-3 md:px-5 bg-white/80 backdrop-blur-sm rounded-full text-[10px] sm:text-xs font-medium">
+          <p className="absolute top-1 right-1 sm:top-2 sm:right-2 md:top-3 md:right-3 ring-1 ring-slate-900/10 px-2 sm:px-3 md:px-4 lg:px-5 bg-white/90 md:bg-white/80 backdrop-blur-sm rounded-full text-[10px] sm:text-xs md:text-sm font-medium shadow-sm">
             {product.type}
           </p>
         )}
       </div>
       {/*info */}
-      <div className="pt-2 sm:pt-3 px-0.5 sm:p-1">
+      <div className="pt-2 sm:pt-3 md:pt-4 lg:pt-5 px-0.5 sm:p-1 md:p-1.5">
         {/*title and description */}
-        <div className="flexBetween gap-1 sm:gap-2">
-          <h5 className="text-xs sm:text-sm md:text-base font-semibold uppercase line-clamp-1 flex-1 min-w-0">{product.title}</h5>
-          <p className="text-xs sm:text-sm md:text-base uppercase font-semibold whitespace-nowrap flex-shrink-0">
+        <div className="flexBetween gap-1 sm:gap-2 md:gap-3">
+          <h5 className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold uppercase line-clamp-1 flex-1 min-w-0 hover:text-tertiary transition-colors cursor-pointer">{product.title}</h5>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg uppercase font-bold whitespace-nowrap flex-shrink-0 text-tertiary">
             {currency}{getPrice()}
           </p>
         </div>
-        <p className="text-[10px] sm:text-xs md:text-sm text-gray-600 line-clamp-2 pt-1 sm:pt-1.5">{product.description}</p>
+        <p className="text-[10px] sm:text-xs md:text-sm lg:text-base text-gray-600 line-clamp-2 pt-1 sm:pt-1.5 md:pt-2 leading-relaxed">{product.description}</p>
       </div>
     </div>
   );
