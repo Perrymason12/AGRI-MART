@@ -17,7 +17,7 @@ const PopularProducts = () => {
     <section className='max-padd-container' >
       <Title title1={"Popular"} title2={"Products"} titleStyles={"pb-10"} />
       {/*container */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+      <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8'>
         {popularProducts.map((product) => (
                <div key={product._id}>
                   <Item product={product} /> 

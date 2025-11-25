@@ -109,38 +109,38 @@ const Collection = () => {
 
   return (
     <div className="max-padd-container px-0! mt-22">
-      <div className="flex flex-col sm:flex-row gap-8 mb-16">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-16">
         {/*filter options */}
-        <div className="min-w-72 bg-primary p-4 pl-6 lg:pl-12 rounded-r-xl">
+        <div className="w-full sm:min-w-72 bg-primary p-3 sm:p-4 pl-3 sm:pl-4 lg:pl-12 rounded-xl sm:rounded-r-xl">
           <SearchInput />
-          <div className=" px-4 py-3 mt-2 bg-white rounded-xl">
-            <h5 className="h5 mb-4">Sort By Price</h5>
-            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 medium-14 h-8 w-full px-2 rounded-md">
+          <div className="px-3 sm:px-4 py-3 mt-2 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Sort By Price</h5>
+            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 text-xs sm:text-sm medium-14 h-8 w-full px-2 rounded-md">
               <option value="relevant">Relevant</option>
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
           </div>
-          <div className=" pl-5 py-3 mt-4 bg-white rounded-xl">
-            <h5 className="h5 mb-4">Categories</h5>
-            <div className="flex flex-col gap-2 text-sm font-light">
+          <div className="px-3 sm:pl-5 py-3 mt-3 sm:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Categories</h5>
+            <div className="flex flex-col gap-2 text-xs sm:text-sm font-light">
               {allCategories.map((cat) => (
-                <label key={cat} className="flex gap-2 medium-14 text-gray-30 ">
+                <label key={cat} className="flex gap-2 medium-14 text-gray-30 cursor-pointer">
                   <input onChange={(e)=>toggleFilter(e.target.value , setCategory)} type="checkbox" value={cat} 
                   checked = {category.includes(cat)}
-                  className="w-3" />
+                  className="w-4 h-4 mt-0.5" />
                   {cat}
                 </label>
               ))}
             </div>
           </div>
-          <div className=" pl-5 py-3 mt-4 bg-white rounded-xl">
-            <h5 className="h5 mb-4">Types</h5>
-            <div className="flex flex-col gap-2 text-sm font-light">
+          <div className="px-3 sm:pl-5 py-3 mt-3 sm:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4">Types</h5>
+            <div className="flex flex-col gap-2 text-xs sm:text-sm font-light">
               {availableTypes.map((typ)=>(
-                <label key={typ} className="flex gap-2 medium-14 text-gray-30">
+                <label key={typ} className="flex gap-2 medium-14 text-gray-30 cursor-pointer">
                   <input onChange={(e)=>toggleFilter(e.target.value , setType)} type="checkbox"
-                  value={typ} checked = {type.includes(typ)} className="w-3"/>
+                  value={typ} checked = {type.includes(typ)} className="w-4 h-4 mt-0.5"/>
                   {typ}
                 </label>
               ))}
@@ -149,35 +149,35 @@ const Collection = () => {
         </div>
 
         {/*Right side - filtered Products */}
-        <div className="max sm:px-10 sm:pr-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="max w-full sm:px-10 sm:pr-10">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {getPaginatedProducts().length > 0 ? (
               getPaginatedProducts().map((product) => (
                 <Item product={product} key={product._id} />
               ))
             ) : (
-              <p className="capitalize">
+              <p className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-4 text-center capitalize text-sm sm:text-base text-gray-600 py-8">
                 No products found for selected filters
               </p>
             )}
           </div>
           {/*pagination */}
-          <div className="flexCenter flex-wrap mt-14 mb-10 gap-4">
+          <div className="flexCenter flex-wrap mt-8 sm:mt-14 mb-6 sm:mb-10 gap-2 sm:gap-4">
             <button disabled={currentPage === 1}
             onClick={()=> setCurrentPage((prev)=> prev - 1)}
-            className={`btn-secondary py-1! px-3! ${currentPage === 1 && "opacity-50 cursor-not-allowed"}`}>
+            className={`btn-secondary py-1.5! px-3! sm:py-2! text-xs sm:text-sm ${currentPage === 1 && "opacity-50 cursor-not-allowed"}`}>
               Previous
             </button>
             {Array.from({length: totalPages},(_, index)=>(
               <button key={index + 1} 
             onClick={()=> setCurrentPage(index + 1)}
-            className={`btn-light py-1! px-3! ${currentPage === index + 1 && "bg-tertiary text-white"}`}>
+            className={`btn-light py-1.5! px-2.5! sm:py-1! sm:px-3! text-xs sm:text-sm min-w-[32px] sm:min-w-[36px] ${currentPage === index + 1 && "bg-tertiary text-white"}`}>
                 {index + 1}
               </button>
             ))}
             <button disabled={currentPage === totalPages}
             onClick={()=> setCurrentPage((prev)=> prev + 1)}
-            className={`btn-secondary py-1! px-3! ${currentPage === totalPages && "opacity-50 cursor-not-allowed"}`}>
+            className={`btn-secondary py-1.5! px-3! sm:py-2! text-xs sm:text-sm ${currentPage === totalPages && "opacity-50 cursor-not-allowed"}`}>
               Next
             </button>
           </div>
