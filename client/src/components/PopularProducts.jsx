@@ -14,7 +14,7 @@ const PopularProducts = () => {
   },[products])
 
   return (
-    <section className='max-padd-container'>
+    <section className='max-padd-container mt-12 md:mt-16 lg:mt-20 xl:mt-24'>
       <Title title1={"Popular"} title2={"Products"} titleStyles={"pb-6 md:pb-8 lg:pb-10"} />
       {/*container */}
       <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8'>
