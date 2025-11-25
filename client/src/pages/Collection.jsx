@@ -108,40 +108,40 @@ const Collection = () => {
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
 
   return (
-    <div className="max-padd-container px-0! mt-16 md:mt-20 lg:mt-22">
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 mb-12 md:mb-14 lg:mb-16">
+    <div className="max-padd-container mt-16 md:mt-20 lg:mt-22">
+      <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-8 xl:gap-10 mb-12 md:mb-14 lg:mb-16">
         {/*filter options */}
-        <div className="w-full sm:min-w-[280px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[340px] bg-primary p-3 sm:p-4 md:p-5 lg:p-6 pl-3 sm:pl-4 md:pl-6 lg:pl-8 xl:pl-12 rounded-xl sm:rounded-r-xl">
+        <div className="w-full lg:w-auto lg:min-w-[240px] lg:max-w-[260px] xl:min-w-[250px] xl:max-w-[270px] bg-primary p-3 md:p-4 lg:p-5 pl-3 md:pl-5 lg:pl-6 xl:pl-7 rounded-xl lg:rounded-r-xl lg:sticky lg:top-24 lg:h-fit">
           <SearchInput />
-          <div className="px-3 sm:px-4 md:px-5 py-3 md:py-4 mt-2 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Sort By Price</h5>
-            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 text-xs sm:text-sm md:text-base medium-14 h-9 md:h-10 w-full px-3 rounded-md">
+          <div className="px-3 md:px-4 py-3 md:py-4 mt-2 bg-white rounded-xl">
+            <h5 className="text-sm md:text-base font-semibold mb-3 md:mb-4">Sort By Price</h5>
+            <select onChange={(e)=>setSelectedSort(e.target.value)} className="border border-slate-900/10 outline-none text-gray-30 text-sm md:text-base medium-14 h-9 md:h-10 w-full px-3 rounded-md cursor-pointer hover:border-slate-900/20 transition-colors">
               <option value="relevant">Relevant</option>
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
           </div>
-          <div className="px-3 sm:pl-5 md:pl-6 py-3 md:py-4 mt-3 sm:mt-4 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Categories</h5>
-            <div className="flex flex-col gap-2.5 md:gap-3 text-xs sm:text-sm md:text-base font-light">
+          <div className="px-3 md:pl-4 lg:pl-5 py-3 md:py-4 mt-3 md:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm md:text-base font-semibold mb-3 md:mb-4">Categories</h5>
+            <div className="flex flex-col gap-2 md:gap-2.5 text-sm font-light max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar">
               {allCategories.map((cat) => (
-                <label key={cat} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors">
+                <label key={cat} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors py-1">
                   <input onChange={(e)=>toggleFilter(e.target.value , setCategory)} type="checkbox" value={cat} 
                   checked = {category.includes(cat)}
-                  className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer" />
-                  {cat}
+                  className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer accent-secondary" />
+                  <span className="select-none">{cat}</span>
                 </label>
               ))}
             </div>
           </div>
-          <div className="px-3 sm:pl-5 md:pl-6 py-3 md:py-4 mt-3 sm:mt-4 bg-white rounded-xl">
-            <h5 className="text-sm sm:text-base md:text-lg font-semibold mb-3 sm:mb-4">Types</h5>
-            <div className="flex flex-col gap-2.5 md:gap-3 text-xs sm:text-sm md:text-base font-light">
+          <div className="px-3 md:pl-4 lg:pl-5 py-3 md:py-4 mt-3 md:mt-4 bg-white rounded-xl">
+            <h5 className="text-sm md:text-base font-semibold mb-3 md:mb-4">Types</h5>
+            <div className="flex flex-col gap-2 md:gap-2.5 text-sm font-light max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar">
               {availableTypes.map((typ)=>(
-                <label key={typ} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors">
+                <label key={typ} className="flex gap-2.5 md:gap-3 medium-14 text-gray-30 cursor-pointer hover:text-tertiary transition-colors py-1">
                   <input onChange={(e)=>toggleFilter(e.target.value , setType)} type="checkbox"
-                  value={typ} checked = {type.includes(typ)} className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer"/>
-                  {typ}
+                  value={typ} checked = {type.includes(typ)} className="w-4 h-4 md:w-5 md:h-5 mt-0.5 cursor-pointer accent-secondary"/>
+                  <span className="select-none">{typ}</span>
                 </label>
               ))}
             </div>
@@ -149,20 +149,20 @@ const Collection = () => {
         </div>
 
         {/*Right side - filtered Products */}
-        <div className="max w-full sm:px-4 md:px-6 lg:px-8 xl:px-10">
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-8">
+        <div className="flex-1 w-full min-w-0">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
             {getPaginatedProducts().length > 0 ? (
               getPaginatedProducts().map((product) => (
                 <Item product={product} key={product._id} />
               ))
             ) : (
-              <p className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-4 text-center capitalize text-sm sm:text-base text-gray-600 py-8">
+              <p className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-3 text-center capitalize text-sm sm:text-base text-gray-600 py-8">
                 No products found for selected filters
               </p>
             )}
           </div>
           {/*pagination */}
-          <div className="flexCenter flex-wrap mt-8 sm:mt-12 md:mt-16 lg:mt-20 mb-6 sm:mb-8 md:mb-10 lg:mb-12 gap-2 sm:gap-3 md:gap-4">
+          <div className="flexCenter flex-wrap mt-10 md:mt-14 lg:mt-16 xl:mt-20 mb-6 md:mb-8 lg:mb-10 xl:mb-12 gap-3 md:gap-4">
             <button disabled={currentPage === 1}
             onClick={()=> setCurrentPage((prev)=> prev - 1)}
             className={`btn-secondary py-2! px-4! md:py-2.5! md:px-5! text-xs sm:text-sm md:text-base transition-all hover:scale-105 ${currentPage === 1 && "opacity-50 cursor-not-allowed hover:scale-100"}`}>
