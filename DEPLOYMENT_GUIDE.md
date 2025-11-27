@@ -64,10 +64,10 @@ This guide will help you deploy your Agri-Mart application with the frontend on 
    CLOUDINARY_API_SECRET=your_api_secret
    STRIPE_SECRET_KEY=sk_test_... (or sk_live_... for production)
    STRIPE_PUBLISHABLE_KEY=pk_test_... (or pk_live_... for production)
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=your_email@gmail.com
-   SMTP_PASS=your_app_password
+   POSTMARK_API_TOKEN=your_postmark_api_token
+   POSTMARK_FROM_EMAIL=noreply@yourdomain.com
+   POSTMARK_FROM_NAME=Agri-Mart
+   POSTMARK_SUPPORT_EMAIL=support@yourdomain.com
    ```
 
 6. **Click "Create Web Service"**
@@ -258,10 +258,10 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 STRIPE_SECRET_KEY=sk_test_... or sk_live_...
 STRIPE_PUBLISHABLE_KEY=pk_test_... or pk_live_...
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
+POSTMARK_API_TOKEN=your_postmark_api_token
+POSTMARK_FROM_EMAIL=noreply@yourdomain.com
+POSTMARK_FROM_NAME=Agri-Mart
+POSTMARK_SUPPORT_EMAIL=support@yourdomain.com
 ```
 
 ---

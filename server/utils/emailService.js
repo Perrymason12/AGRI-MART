@@ -1,39 +1,42 @@
-import nodemailer from 'nodemailer';
+import { ServerClient } from 'postmark';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Create transporter only if SMTP credentials are available
-let transporter = null;
-if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  });
-
-  // Verify transporter
-  transporter.verify((error, success) => {
-    if (error) {
-      console.error('Email service error:', error);
-    } else {
-      console.log('Email service is ready');
-    }
-  });
+// Initialize Postmark client only if API token is available
+let postmarkClient = null;
+if (process.env.POSTMARK_API_TOKEN) {
+  postmarkClient = new ServerClient(process.env.POSTMARK_API_TOKEN);
+  console.log('Postmark email service initialized');
 } else {
-  console.warn('SMTP_USER or SMTP_PASS not set. Email sending is disabled.');
-  // Provide a dummy transporter API so calls to sendMail won't crash
-  transporter = {
-    sendMail: async (mailOptions) => {
-      console.log('Skipping email send (SMTP credentials missing).', mailOptions && mailOptions.to);
-      return { messageId: null };
-    }
-  };
+  console.warn('POSTMARK_API_TOKEN not set. Email sending is disabled.');
 }
+
+// Helper function to send email via Postmark
+const sendEmail = async (to, subject, html, from = null) => {
+  if (!postmarkClient) {
+    console.log('Skipping email send (Postmark API token missing).', to);
+    return { MessageID: null };
+  }
+
+  try {
+    const fromEmail = from || process.env.POSTMARK_FROM_EMAIL || 'noreply@example.com';
+    const fromName = process.env.POSTMARK_FROM_NAME || 'Agri-Mart';
+    
+    const response = await postmarkClient.sendEmail({
+      From: `"${fromName}" <${fromEmail}>`,
+      To: to,
+      Subject: subject,
+      HtmlBody: html,
+      MessageStream: 'outbound'
+    });
+
+    return response;
+  } catch (error) {
+    console.error('Postmark email error:', error);
+    throw error;
+  }
+};
 
 // Send order confirmation email
 export const sendOrderConfirmationEmail = async (order, user, address) => {
@@ -53,11 +56,10 @@ export const sendOrderConfirmationEmail = async (order, user, address) => {
       `;
     }).join('');
 
-    const mailOptions = {
-      from: `"Agri-Mart" <${process.env.SMTP_USER}>`,
-      to: user.email,
-      subject: `Order Confirmation - Order #${order._id}`,
-      html: `
+    const fromEmail = process.env.POSTMARK_FROM_EMAIL || 'noreply@example.com';
+    const supportEmail = process.env.POSTMARK_SUPPORT_EMAIL || fromEmail;
+    
+    const htmlContent = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -127,7 +129,7 @@ export const sendOrderConfirmationEmail = async (order, user, address) => {
               </div>
 
               <p>We'll send you another email when your order ships.</p>
-              <p>If you have any questions, please contact us at ${process.env.SMTP_USER}</p>
+              <p>If you have any questions, please contact us at ${supportEmail}</p>
             </div>
             <div class="footer">
               <p>&copy; ${new Date().getFullYear()} Agri-Mart. All rights reserved.</p>
@@ -135,12 +137,16 @@ export const sendOrderConfirmationEmail = async (order, user, address) => {
           </div>
         </body>
         </html>
-      `
-    };
+    `;
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Order confirmation email sent:', info.messageId);
-    return info;
+    const response = await sendEmail(
+      user.email,
+      `Order Confirmation - Order #${order._id}`,
+      htmlContent
+    );
+
+    console.log('Order confirmation email sent:', response.MessageID);
+    return response;
   } catch (error) {
     console.error('Error sending order confirmation email (non-fatal):', error);
     // Don't rethrow to avoid crashing order flow when email fails (e.g., SMTP auth issues)

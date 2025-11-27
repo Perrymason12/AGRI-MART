@@ -29,7 +29,7 @@
 - Payment confirmation handling
 
 ### 5. **Email Service**
-- Nodemailer configured
+- Postmark configured for transactional emails
 - Order confirmation emails
 - HTML email templates
 
@@ -55,10 +55,10 @@ CLOUDINARY_API_KEY=your_cloudinary_key
 CLOUDINARY_API_SECRET=your_cloudinary_secret
 STRIPE_SECRET_KEY=your_stripe_secret_key
 STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
+POSTMARK_API_TOKEN=your_postmark_api_token
+POSTMARK_FROM_EMAIL=noreply@yourdomain.com
+POSTMARK_FROM_NAME=Agri-Mart
+POSTMARK_SUPPORT_EMAIL=support@yourdomain.com
 ```
 
 ## 🚀 Frontend Updates Needed

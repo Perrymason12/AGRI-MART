@@ -69,7 +69,7 @@ AGRI-MART is a complete e-commerce solution designed for the agricultural sector
 - **Clerk SDK** - Backend authentication
 - **Stripe SDK** - Payment processing
 - **Cloudinary** - Image hosting and optimization
-- **Nodemailer** - Email service
+- **Postmark** - Transactional email service
 - **Multer** - File upload handling
 
 ### Security & Performance
@@ -125,7 +125,7 @@ AGRI-MART follows a modern full-stack architecture:
    - Processes business logic (cart calculations, order creation)
    - Handles file uploads to Cloudinary
    - Integrates with Stripe for payments
-   - Sends emails via Nodemailer
+   - Sends emails via Postmark
    - Stores data in MongoDB
 
 ## 🚀 Installation
@@ -187,11 +187,11 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# Email Service
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
+# Email Service (Postmark)
+POSTMARK_API_TOKEN=your_postmark_api_token
+POSTMARK_FROM_EMAIL=noreply@yourdomain.com
+POSTMARK_FROM_NAME=Agri-Mart
+POSTMARK_SUPPORT_EMAIL=support@yourdomain.com
 ```
 
 #### Frontend Environment Variables
@@ -278,11 +278,18 @@ npm run make:owner <clerk-user-id>
 2. Get your cloud name, API key, and API secret
 3. Add them to the backend `.env` file
 
-### Email Service Setup (Gmail)
+### Email Service Setup (Postmark)
 
-1. Enable 2-factor authentication on your Gmail account
-2. Generate an app password: [Google Account Settings](https://myaccount.google.com/apppasswords)
-3. Use the app password in `SMTP_PASS`
+1. Sign up for a Postmark account at [postmarkapp.com](https://postmarkapp.com)
+2. Create a new server in your Postmark account
+3. Get your Server API Token from the server settings
+4. Add your verified sender signature (email address) to the server
+5. Copy the API token to `POSTMARK_API_TOKEN` in your `.env` file
+6. Set `POSTMARK_FROM_EMAIL` to your verified sender email address
+7. Set `POSTMARK_FROM_NAME` to your desired sender name (e.g., "Agri-Mart")
+8. Optionally set `POSTMARK_SUPPORT_EMAIL` for customer support emails
+
+**Note**: Postmark offers a free tier with 100 emails/month, perfect for development and testing.
 
 ## 🌐 Deployment
 
@@ -348,10 +355,10 @@ npm run make:owner <clerk-user-id>
    CLOUDINARY_API_SECRET=...
    STRIPE_SECRET_KEY=sk_live_...
    STRIPE_PUBLISHABLE_KEY=pk_live_...
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=...
-   SMTP_PASS=...
+   POSTMARK_API_TOKEN=your_postmark_api_token
+   POSTMARK_FROM_EMAIL=noreply@yourdomain.com
+   POSTMARK_FROM_NAME=Agri-Mart
+   POSTMARK_SUPPORT_EMAIL=support@yourdomain.com
    ```
 
 5. **Deploy and update CORS**
